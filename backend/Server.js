@@ -6,6 +6,7 @@ import UserLoginSignup from "./Routes/UserRoute.js";
 import Post from "./Routes/PostRoute.js";
 import Archieve from "./Routes/ArchieveRoute.js";
 import Trash from "./Routes/TrashRoute.js";
+import Label from "./Routes/LabelRoute.js";
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -28,7 +29,7 @@ app.use(`/api/user`, UserLoginSignup);
 app.use(`/api/post`, Post);
 app.use(`/api/archieve`, Archieve);
 app.use(`/api/trash`, Trash);
-
+app.use(`/api/label`, Label);
 
 // custome err handeling
 app.use((err, req, res, next) => {
