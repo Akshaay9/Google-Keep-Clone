@@ -13,7 +13,7 @@ const postSchema = mongoose.Schema(
       default: false,
     },
     color: {
-      trype: String,
+      type: String,
       default: "white",
     },
     isEditable: {
@@ -32,4 +32,5 @@ const postSchema = mongoose.Schema(
 );
 
 const Post = mongoose.model("Post", postSchema);
+
 export default Post;

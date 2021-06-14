@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dbConnection from "./DB.js";
 import dotenv from "dotenv";
+import UserLoginSignup from "./Routes/UserRoute.js";
+import Post from "./Routes/PostRoute.js";
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -20,6 +22,8 @@ app.get("/", (req, res) => {
 });
 
 // routes
+// app.use(`/api/user`, UserLoginSignup);
+// app.use(`/api/post`, Post);
 
 
 // custome err handeling
