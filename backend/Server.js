@@ -22,8 +22,8 @@ app.get("/", (req, res) => {
 });
 
 // routes
-// app.use(`/api/user`, UserLoginSignup);
-// app.use(`/api/post`, Post);
+app.use(`/api/user`, UserLoginSignup);
+app.use(`/api/post`, Post);
 
 
 // custome err handeling

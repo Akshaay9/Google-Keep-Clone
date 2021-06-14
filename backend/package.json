@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon Server"
+    "server": "nodemon Server",
+     "data:import": "node Seeder",
+    "data:delete": "node Seeder -d"
   },
   "author": "",
   "license": "ISC",
