@@ -5,12 +5,21 @@ const trashSchema = mongoose.Schema(
     title: {
       type: String,
     },
+
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     description: {
       type: String,
     },
     color: {
-      trype: String,
+      type: String,
       default: "white",
+    },
+    location: {
+      type: String,
+      required: true,
     },
     label: [
       {

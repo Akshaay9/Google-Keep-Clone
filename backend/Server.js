@@ -4,6 +4,8 @@ import dbConnection from "./DB.js";
 import dotenv from "dotenv";
 import UserLoginSignup from "./Routes/UserRoute.js";
 import Post from "./Routes/PostRoute.js";
+import Archieve from "./Routes/ArchieveRoute.js";
+import Trash from "./Routes/TrashRoute.js";
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -24,6 +26,8 @@ app.get("/", (req, res) => {
 // routes
 app.use(`/api/user`, UserLoginSignup);
 app.use(`/api/post`, Post);
+app.use(`/api/archieve`, Archieve);
+app.use(`/api/trash`, Trash);
 
 
 // custome err handeling

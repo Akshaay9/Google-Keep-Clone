@@ -1,8 +1,9 @@
 import express from "express";
 import {
   addPost,
-  deletePost,
   getAllPosts,
+  moveToArchieves,
+  moveToTrash,
   updatePost,
 } from "../Controllers/PostController.js";
 import privateRoute from "../MiddleWears/Authentication.js";
@@ -22,13 +23,21 @@ router.get("/", privateRoute, getAllPosts);
 router.post("/", privateRoute, addPost);
 
 // private
+// move
+// delete and move to archieve
+router.post("/:postID/addToArchieve", privateRoute, moveToArchieves);
+
+// private
+// move
+// delete and move to archieve
+router.post("/:postID/addToTrash", privateRoute, moveToTrash);
+
+
+// private
 // post
 // update individual post
 router.post("/:postID", privateRoute, updatePost);
 
-// private
-// delete
-// delete post from user
-router.delete("/:postID", privateRoute, deletePost);
+
 
 export default router;
