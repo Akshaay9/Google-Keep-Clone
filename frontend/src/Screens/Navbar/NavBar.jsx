@@ -8,17 +8,18 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     "& > *": {
       margin: theme.spacing(2),
-        border: "1px solid #f1f3f4",
+      border: "1px solid #f1f3f4",
     },
   },
 }));
-function NavBar() {
+function NavBar({ setOpen, isOpen }) {
+
   const classes = useStyles();
   return (
     <div>
       <div class="nav ">
         <div class="nav_left ">
-          <Hamburger direction="right" />
+          <Hamburger direction="right" toggled={isOpen} toggle={setOpen} />
           <div class="nav_logo">
             <img
               src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png"
@@ -35,7 +36,7 @@ function NavBar() {
         </div>
         <div class="nav_right ">
           <Avatar
-            variant="square"
+            variant="rounded"
             src="https://upload.wikimedia.org/wikipedia/commons/0/07/Kai_at_a_Launching_Press_Conference_on_October_2%2C_2019_3.jpg"
             className={classes.root}
           />
