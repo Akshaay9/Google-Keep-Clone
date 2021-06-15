@@ -9,10 +9,13 @@ import {
   PopoverBody,
   Stack,
   Input,
-  Button,
 } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadNote } from "../../features/Notes/NotesSlice";
 function PostModal() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { token } = useSelector((state) => state.User);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -20,6 +23,16 @@ function PostModal() {
     isPinned: false,
     label: [],
   });
+
+  const cleanUp = () => {
+    setFormData({
+      title: "",
+      description: "",
+      color: "white",
+      isPinned: false,
+      label: [],
+    });
+  };
 
   const closeModal = (e) => {
     if (e.target.classList.contains("modalContainer")) {
@@ -46,8 +59,15 @@ function PostModal() {
   };
 
   const formHandler = () => {
-  console.log(formData)
-}
+    const dataToBeSent = {
+      data: formData,
+      token,
+    };
+
+    dispatch(uploadNote(dataToBeSent));
+    cleanUp();
+    navigate("/");
+  };
 
   return (
     <div>
@@ -142,7 +162,9 @@ function PostModal() {
                 </PopoverContent>
               </Popover>
             </div>
-            <button className="formDataCTA" onClick={()=>formHandler()}>Add Note</button>
+            <button className="formDataCTA" onClick={() => formHandler()}>
+              Add Note
+            </button>
           </div>
         </div>
       </div>

@@ -14,15 +14,11 @@ const postSchema = mongoose.Schema(
     },
     isPinned: {
       type: Boolean,
-      default: false,
+
     },
     color: {
       type: String,
       default: "white",
-    },
-    isEditable: {
-      type: Boolean,
-      default: false,
     },
     label: [
       {

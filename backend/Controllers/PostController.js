@@ -10,7 +10,7 @@ export const getAllPosts = async (req, res) => {
 };
 
 export const addPost = async (req, res) => {
-  const { title, description, color, label } = req.body;
+  const { title, description, color, label,isPinned } = req.body;
   const { user } = req;
 
   const newPost = {
