@@ -4,7 +4,7 @@ import SideBar from "./SideBar";
 import Fixedsidebar from "./Fixedsidebar";
 import "./App.css";
 function Index() {
-  const [isOpen, setOpen] = useState(true);
+  const [isOpen, setOpen] = useState(false);
   return (
     <div>
       <NavBar setOpen={setOpen} isOpen={isOpen} />
