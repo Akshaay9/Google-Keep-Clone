@@ -7,7 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon Server",
-     "data:import": "node Seeder",
+    "client": "npm start --prefix ../frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node Seeder",
     "data:delete": "node Seeder -d"
   },
   "author": "",

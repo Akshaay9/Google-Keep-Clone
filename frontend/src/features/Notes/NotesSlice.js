@@ -9,10 +9,52 @@ const initialState = {
 };
 
 // get all posts
-export const getAllNotes = createAsyncThunk("notes/all", async () => {
-  const data = await axios.get(`http://localhost:5000/api/post`);
+export const getAllNotes = createAsyncThunk("notes/all", async (token) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": token,
+    },
+  };
+  const data = await axios.get(`http://localhost:5000/api/post`, config);
   return data.data;
 });
+
+export const getAllTags = createAsyncThunk("tags/all", async (token) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": token,
+    },
+  };
+  const data = await axios.get(`http://localhost:5000/api/label`, config);
+  return data.data;
+});
+
+export const getAllTrash = createAsyncThunk("trash/all", async (token) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": token,
+    },
+  };
+  const data = await axios.get(`http://localhost:5000/api/trash`, config);
+  return data.data;
+});
+
+export const getAllArchieves = createAsyncThunk(
+  "archieves/all",
+  async (token) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token,
+      },
+    };
+    const data = await axios.get(`http://localhost:5000/api/archieve`, config);
+    return data.data;
+  }
+);
 
 // upload new post
 export const uploadNote = createAsyncThunk(
@@ -43,10 +85,45 @@ export const uploadNote = createAsyncThunk(
   }
 );
 
+// update new post
+export const updatedNote = createAsyncThunk(
+  "notes/update",
+  async (dataToBeSent, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": dataToBeSent.token,
+      },
+    };
+    try {
+      const data = await axios.post(
+        `http://localhost:5000/api/post/${dataToBeSent.id}`,
+        dataToBeSent.data,
+        config
+      );
+      console.log(data.data);
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const NotesSlice = createSlice({
   name: "Notes",
   initialState,
-  reducers: {},
+  reducers: {
+    pinUnpin: (state, { payload }) => {
+      state.notes = state.notes.map((ele) =>
+        ele._id == payload
+          ? {
+              ...ele,
+              isPinned: !ele.isPinned,
+            }
+          : ele
+      );
+    },
+  },
   extraReducers: {
     [getAllNotes.pending]: (state, action) => {
       state.status = "pending";
@@ -54,6 +131,27 @@ export const NotesSlice = createSlice({
     [getAllNotes.fulfilled]: (state, { payload }) => {
       state.loginStatus = "success";
       state.notes = payload;
+    },
+    [getAllTags.pending]: (state, action) => {
+      state.status = "pending";
+    },
+    [getAllTags.fulfilled]: (state, { payload }) => {
+      state.loginStatus = "success";
+      state.labels = payload;
+    },
+    [getAllTrash.pending]: (state, action) => {
+      state.status = "pending";
+    },
+    [getAllTrash.fulfilled]: (state, { payload }) => {
+      state.loginStatus = "success";
+      state.trash = payload;
+    },
+    [getAllArchieves.pending]: (state, action) => {
+      state.status = "pending";
+    },
+    [getAllArchieves.fulfilled]: (state, { payload }) => {
+      state.loginStatus = "success";
+      state.archieves = payload;
     },
     [uploadNote.pending]: (state, action) => {
       state.status = "pending";
@@ -64,5 +162,7 @@ export const NotesSlice = createSlice({
     },
   },
 });
+
+export const { pinUnpin } = NotesSlice.actions;
 
 export default NotesSlice.reducer;
