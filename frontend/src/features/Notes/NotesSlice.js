@@ -123,6 +123,9 @@ export const NotesSlice = createSlice({
           : ele
       );
     },
+    updateNote: (state, { payload }) => {
+      
+    }
   },
   extraReducers: {
     [getAllNotes.pending]: (state, action) => {

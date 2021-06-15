@@ -8,7 +8,7 @@ function Notes({ ele }) {
   const navigate = useNavigate();
   return (
     <div className="note-card" style={{ backgroundColor: `${ele?.color}` }}>
-      <div className="note-r1">
+      <div className="note-r1 ">
         <h3>{ele?.title}</h3>
         <i
           class="fas fa-thumbtack"
