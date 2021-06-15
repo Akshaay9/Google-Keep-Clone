@@ -8,19 +8,19 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  Portal,
+  Stack,
 } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
+import { Checkbox } from "@chakra-ui/react";
 function PostModal() {
   const navigate = useNavigate();
-
   const closeModal = (e) => {
     if (e.target.classList.contains("modalContainer")) {
       navigate("/");
     }
   };
+
+  const labels = ["new", "office", "home", "make"];
 
   return (
     <div>
@@ -32,6 +32,12 @@ function PostModal() {
           </div>
           <div className="modal-card-r2">
             <textarea type="text" placeholder="Take a note..." />
+          </div>
+          <div className="modal-card-r4 ">
+           <span>hey <i class="fas fa-times"></i></span>
+           <span>hey <i class="fas fa-times"></i></span>
+           <span>hey <i class="fas fa-times"></i></span>
+           <span>hey <i class="fas fa-times"></i></span>
           </div>
           <div className="modal-card-r3 ">
             <div className="modal-card-r3-items">
@@ -55,13 +61,22 @@ function PostModal() {
                   <h5>Add label</h5>
                 </PopoverTrigger>
                 <PopoverContent>
-                  <PopoverHeader>Label Note!</PopoverHeader>
                   <PopoverBody>
-                    Are you sure you want to have that milkshake?
+                    <Input
+                      placeholder="Enter a new label..."
+                      size="xs"
+                      variant="filled"
+                    />
+                    <Stack spacing={1} direction="column">
+                      {labels.map((ele) => (
+                        <Checkbox  >{ele}</Checkbox>
+                      ))}
+                    </Stack>
                   </PopoverBody>
                 </PopoverContent>
               </Popover>
             </div>
+            <button>Add Note</button>
           </div>
         </div>
       </div>

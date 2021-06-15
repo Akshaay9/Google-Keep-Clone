@@ -95,13 +95,13 @@
 }
 
 .modal-card-r3 button {
-  padding: 0.3rem 1.5rem;
+  padding: 0rem 1.5rem;
   color: white;
   background-color: #e2ab0999;
   outline: none;
   border: none;
   border-radius: 0.3rem;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 .modal-card-r3 button:hover {
   background-color: #fbbc04;
@@ -134,6 +134,20 @@
 .color-pallet i:hover + .colors {
   display: flex !important;
 }
-.colors:hover{
+.colors:hover {
   display: flex;
+}
+.modal-card-r4 {
+  display: flex;
+  padding-bottom: 1rem;
+}
+.modal-card-r4 span {
+  margin-left: 1rem;
+  border-radius: 0.5rem;
+  padding: 0rem 0.5rem;
+  background-color: #ebebeb;
+}
+.modal-card-r4 i {
+  color: #a0aec0;
+  font-size: 12px;
 }
