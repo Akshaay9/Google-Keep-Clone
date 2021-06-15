@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../Colors";
@@ -6,14 +6,21 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
   Stack,
+  Input,
+  Button,
 } from "@chakra-ui/react";
-import { Input } from "@chakra-ui/react";
-import { Checkbox } from "@chakra-ui/react";
 function PostModal() {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    color: "white",
+    isPinned: false,
+    label: [],
+  });
+
   const closeModal = (e) => {
     if (e.target.classList.contains("modalContainer")) {
       navigate("/");
@@ -22,22 +29,68 @@ function PostModal() {
 
   const labels = ["new", "office", "home", "make"];
 
+  const addLabel = (tag) => {
+    setFormData((ele) => ({
+      ...ele,
+      label: formData.label.includes(tag)
+        ? ele.label.filter((ele) => ele != tag)
+        : [tag, ...ele.label],
+    }));
+  };
+
+  const removeLabel = (tag) => {
+    setFormData((ele) => ({
+      ...ele,
+      label: ele.label.filter((ele) => ele != tag),
+    }));
+  };
+
+  const formHandler = () => {
+  console.log(formData)
+}
+
   return (
     <div>
       <div className="modalContainer" onClick={(e) => closeModal(e)}>
-        <div className="modal-card ">
+        <div
+          className="modal-card"
+          style={{ backgroundColor: `${formData.color}` }}
+        >
           <div className="modal-card-r1 ">
-            <input type="text" placeholder="Title" />
-            <i class="fas fa-thumbtack"></i>
+            <input
+              type="text"
+              placeholder="Title"
+              value={formData.title}
+              onChange={(e) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
+            />
+            <i
+              class="fas fa-thumbtack"
+              style={formData.isPinned ? { color: "black" } : {}}
+              onClick={() =>
+                setFormData({ ...formData, isPinned: !formData.isPinned })
+              }
+            ></i>
           </div>
           <div className="modal-card-r2">
-            <textarea type="text" placeholder="Take a note..." />
+            <textarea
+              type="text"
+              placeholder="Take a note..."
+              value={formData.description}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
+            />
           </div>
           <div className="modal-card-r4 ">
-           <span>hey <i class="fas fa-times"></i></span>
-           <span>hey <i class="fas fa-times"></i></span>
-           <span>hey <i class="fas fa-times"></i></span>
-           <span>hey <i class="fas fa-times"></i></span>
+            {formData.label?.length > 0 &&
+              formData.label.map((ele) => (
+                <span>
+                  {ele}
+                  <i class="fas fa-times" onClick={() => removeLabel(ele)}></i>
+                </span>
+              ))}
           </div>
           <div className="modal-card-r3 ">
             <div className="modal-card-r3-items">
@@ -47,7 +100,13 @@ function PostModal() {
                   {colors.map((ele) => (
                     <div className="indi-colors">
                       <div
+                        style={
+                          formData.color == ele
+                            ? { border: "1px solid black" }
+                            : {}
+                        }
                         style={{ color: `${ele}`, backgroundColor: `${ele}` }}
+                        onClick={() => setFormData({ ...formData, color: ele })}
                       >
                         hey
                       </div>
@@ -58,7 +117,7 @@ function PostModal() {
 
               <Popover>
                 <PopoverTrigger>
-                  <h5>Add label</h5>
+                  <button>Add label</button>
                 </PopoverTrigger>
                 <PopoverContent>
                   <PopoverBody>
@@ -67,21 +126,32 @@ function PostModal() {
                       size="xs"
                       variant="filled"
                     />
-                    <Stack spacing={1} direction="column">
+                    <Stack spacing={0} direction="column">
                       {labels.map((ele) => (
-                        <Checkbox  >{ele}</Checkbox>
+                        <div className="inputLabelCheckbox">
+                          <label htmlFor="">{ele}</label>
+                          <input
+                            type="checkbox"
+                            checked={formData.label.includes(ele)}
+                            onClick={() => addLabel(ele)}
+                          />
+                        </div>
                       ))}
                     </Stack>
                   </PopoverBody>
                 </PopoverContent>
               </Popover>
             </div>
-            <button>Add Note</button>
+            <button className="formDataCTA" onClick={()=>formHandler()}>Add Note</button>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+// {console.log(
+//   formData.label.some((label) => label == ele)
+// // )}
 
 export default PostModal;

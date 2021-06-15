@@ -94,7 +94,7 @@
   color: #000000;
 }
 
-.modal-card-r3 button {
+.formDataCTA {
   padding: 0rem 1.5rem;
   color: white;
   background-color: #e2ab0999;
@@ -103,13 +103,13 @@
   border-radius: 0.3rem;
   /* font-weight: bold; */
 }
-.modal-card-r3 button:hover {
+.formDataCTA:hover {
   background-color: #fbbc04;
 }
 .colors {
   display: flex;
   width: 9rem;
-  height: 7rem;
+  height: 10rem;
   flex-wrap: wrap;
   align-items: center;
   z-index: 200;
@@ -119,7 +119,7 @@
   background-color: rgb(255, 255, 255);
   border-radius: 0.3rem;
   position: absolute;
-  bottom: -260%;
+  bottom: -390%;
   left: 2%;
   display: none;
   transition: all 100ms ease-in-out;
@@ -132,6 +132,9 @@
 }
 
 .color-pallet i:hover + .colors {
+  display: flex !important;
+}
+.color-pallet i:active + .colors {
   display: flex !important;
 }
 .colors:hover {
@@ -150,4 +153,12 @@
 .modal-card-r4 i {
   color: #a0aec0;
   font-size: 12px;
+  padding-left: .2rem;
+}
+.inputLabelCheckbox{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+  margin: auto !important
 }

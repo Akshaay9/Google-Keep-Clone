@@ -18,6 +18,7 @@ export const addPost = async (req, res) => {
     description,
     color,
     label,
+    isPinned,
     user: user.id,
   };
   const savedNewPost = new Post(newPost);
@@ -32,8 +33,6 @@ export const updatePost = async (req, res) => {
   await individualPost.save();
   return res.status(200).json(individualPost);
 };
-
-
 
 export const moveToArchieves = async (req, res) => {
   let { individualPost } = req;
