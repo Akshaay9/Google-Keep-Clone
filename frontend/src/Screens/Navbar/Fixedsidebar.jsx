@@ -24,7 +24,9 @@ function Fixedsidebar({ isOpen }) {
           </Link>
           <li>
             {" "}
-            <i class="fas fa-trash"></i>
+            <Link to="/trash">
+              <i class="fas fa-trash"></i>
+            </Link>
           </li>
         </ul>
       </div>

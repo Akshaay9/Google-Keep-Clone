@@ -20,7 +20,9 @@ function SideBar({ isOpen }) {
             </li>
           </Link>
           <li>
-            <i class="fas fa-trash"></i> <span>Trash</span>
+            <Link to="/trash">
+              <i class="fas fa-trash"></i> <span>Trash</span>
+            </Link>
           </li>
         </ul>
       </div>
