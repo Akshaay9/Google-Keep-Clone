@@ -249,7 +249,32 @@ export const restoreFromTrash = createAsyncThunk(
         null,
         config
       );
-      console.log(data)
+
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      console.log(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// restore
+export const deleteTrashPermannently = createAsyncThunk(
+  "notes/deleteTrashPErmannetly",
+  async (dataToBeSent, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": dataToBeSent.token,
+      },
+    };
+    try {
+      const data = await axios.delete(
+        `http://localhost:5000/api/trash/${dataToBeSent.id}`,
+        config
+      );
+
       return data.data;
     } catch (error) {
       console.log(error);
@@ -396,13 +421,11 @@ export const NotesSlice = createSlice({
     },
     [restoreFromTrash.fulfilled]: (state, { payload }) => {
       state.status = "success";
-      if(payload.type=="notes"){
-        state.notes=payload.data
+      if (payload.type == "notes") {
+        state.notes = payload.data;
+      } else {
+        state.archieves = payload.data;
       }
-      else {
-        state.archieves=payload.data
-      }
-     
     },
   },
 });

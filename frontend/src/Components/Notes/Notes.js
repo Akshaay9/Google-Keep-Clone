@@ -13,6 +13,7 @@ import {
   restoreTrash,
   deletePermanently,
   restoreFromTrash,
+  deleteTrashPermannently,
 } from "../../features/Notes/NotesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -108,7 +109,16 @@ function Notes({ ele, noteType }) {
         {noteType == "trash" && (
           <div className="note-r5 ">
             {
-              <h3 onClick={() => dispatch(deletePermanently(ele._id))}>
+              <h3
+                onClick={() => {
+                  const dataToBeSent = {
+                    id: ele._id,
+                    token,
+                  };
+                  dispatch(deleteTrashPermannently(dataToBeSent));
+                  dispatch(deletePermanently(ele._id));
+                }}
+              >
                 Delete
               </h3>
             }
