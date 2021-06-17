@@ -56,6 +56,7 @@ export const moveToTrash = async (req, res) => {
     color: individualPost.color,
     label: individualPost.label,
     user: req.user.id,
+    isPinned: false,
     location: "Post",
   });
   await newTrash.save();

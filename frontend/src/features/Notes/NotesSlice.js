@@ -233,6 +233,32 @@ export const archieveToTrash = createAsyncThunk(
   }
 );
 
+// restore
+export const restoreFromTrash = createAsyncThunk(
+  "notes/restoretrash",
+  async (dataToBeSent, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": dataToBeSent.token,
+      },
+    };
+    try {
+      const data = await axios.post(
+        `http://localhost:5000/api/trash/${dataToBeSent.id}/restore`,
+        null,
+        config
+      );
+      console.log(data)
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      console.log(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const NotesSlice = createSlice({
   name: "Notes",
   initialState,
@@ -284,6 +310,21 @@ export const NotesSlice = createSlice({
       let individualNote = state.archieves.find((ele) => ele._id == payload);
       state.archieves = state.archieves.filter((ele) => ele._id !== payload);
       state.trash.unshift(individualNote);
+    },
+
+    restoreTrash: (state, { payload }) => {
+      let individualNote = state.trash.find((ele) => ele._id == payload);
+
+      if (individualNote.location == "Post") {
+        console.log("hey");
+        state.notes.unshift({ ...individualNote, isPinned: false });
+      } else {
+        state.archieves.unshift({ ...individualNote, isPinned: false });
+      }
+      state.trash = state.trash.filter((ele) => ele._id != payload);
+    },
+    deletePermanently: (state, { payload }) => {
+      state.trash = state.trash.filter((ele) => ele._id != payload);
     },
   },
   extraReducers: {
@@ -350,6 +391,19 @@ export const NotesSlice = createSlice({
       state.status = "success";
       state.trash = payload;
     },
+    [restoreFromTrash.pending]: (state, action) => {
+      state.status = "pending";
+    },
+    [restoreFromTrash.fulfilled]: (state, { payload }) => {
+      state.status = "success";
+      if(payload.type=="notes"){
+        state.notes=payload.data
+      }
+      else {
+        state.archieves=payload.data
+      }
+     
+    },
   },
 });
 
@@ -361,6 +415,8 @@ export const {
   updateArchieveLocally,
   addNoteToTrash,
   addArchieveToTrash,
+  restoreTrash,
+  deletePermanently,
 } = NotesSlice.actions;
 
 export default NotesSlice.reducer;

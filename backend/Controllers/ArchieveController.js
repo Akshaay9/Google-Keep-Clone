@@ -25,6 +25,7 @@ export const moveToTrash = async (req, res) => {
     color: individualPost.color,
     label: individualPost.label,
     user: req.user.id,
+    isPinned: false,
     location: "archieve",
   });
   await newTrash.save();
@@ -38,7 +39,7 @@ export const moveToPost = async (req, res) => {
   let { individualPost } = req;
   const newArchieve = new Post({
     title: individualPost.title,
-    description: individualPost.description,
+    description: individualPost.description,  
     color: individualPost.color,
     label: individualPost.label,
     user: req.user.id,
