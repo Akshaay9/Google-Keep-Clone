@@ -8,6 +8,7 @@ const initialState = {
   trash: [],
   labels: [],
   status: "idle",
+  searchedNote: [],
 };
 
 // get all posts
@@ -351,6 +352,37 @@ export const NotesSlice = createSlice({
     deletePermanently: (state, { payload }) => {
       state.trash = state.trash.filter((ele) => ele._id != payload);
     },
+
+    searchNotes: (state, { payload }) => {
+      let noteSearch = state.notes.filter(
+        (ele) =>
+          (payload !== "" &&
+            ele.title
+              .toString()
+              .toLowerCase()
+              .includes(payload.toString().toLowerCase())) ||
+          ele.description
+            .toString()
+            .toLowerCase()
+            .includes(payload.toString().toLowerCase())
+      );
+      let archieveSearch = state.archieves.filter(
+        (ele) =>
+          (payload !== "" &&
+            ele.title
+              .toString()
+              .toLowerCase()
+              .includes(payload.toString().toLowerCase())) ||
+          ele.description
+            .toString()
+            .toLowerCase()
+            .includes(payload.toString().toLowerCase())
+      );
+      state.searchedNote = [...noteSearch, ...archieveSearch];
+    },
+    clearSearch:(state,{payload})=>{
+      state.searchedNote=[]
+    }
   },
   extraReducers: {
     [getAllNotes.pending]: (state, action) => {
@@ -440,6 +472,26 @@ export const {
   addArchieveToTrash,
   restoreTrash,
   deletePermanently,
+  searchNotes,
+  clearSearch
 } = NotesSlice.actions;
 
 export default NotesSlice.reducer;
+
+//  searchNotes: (state, { payload }) => {
+// let noteSearch = state.notes.filter(
+//       (ele) =>
+//         ele.title.toString().toLowerCase().includes() ===
+//           payload.toString().toLowerCase() ||
+//         ele.description.toString().toLowerCase().includes() ===
+//           payload.toString().toLowerCase()
+//     );
+//     let archieveSearch = state.archieves.filter(
+//       (ele) =>
+//         ele.title.trim().toString().toLowerCase().includes() ===
+//           payload.toString().toLowerCase() ||
+//         ele.description.toString().toLowerCase().includes() ===
+//           payload.toString().toLowerCase()
+//     );
+//     state.searchedNote = [...noteSearch,...archieveSearch];
+//   },

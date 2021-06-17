@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Hamburger from "hamburger-react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { clearSearch, searchNotes } from "../../features/Notes/NotesSlice";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     "& > *": {
       margin: theme.spacing(2),
       border: "1px solid #f1f3f4",
-
     },
   },
 }));
 function NavBar({ setOpen, isOpen }) {
+  const dispatch = useDispatch();
+  const [input, setInput] = useState("");
 
   const classes = useStyles();
+
+  useEffect(() => {
+    if (input.length > 0) {
+      dispatch(searchNotes(input));
+    } else {
+      dispatch(clearSearch());
+    }
+  }, [input]);
+
   return (
     <div>
       <div class="nav ">
@@ -33,7 +45,13 @@ function NavBar({ setOpen, isOpen }) {
         </div>
         <div class="nav_center ">
           <i class="fas fa-search"></i>
-          <input type="text" placeholder="Search" />
+          <Link to="/search">
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => setInput(e.target.value)}
+            />
+          </Link>
         </div>
         <div class="nav_right ">
           <Avatar

@@ -12,6 +12,7 @@ import {
 } from "./features/Notes/NotesSlice";
 import Archieves from "./Screens/Archieves/Archieves";
 import Trash from "./Screens/Trash/Trash";
+import Search from "./Screens/Search/Search";
 function App() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User);
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/archieves" element={<Archieves />} />
           <Route path="/trash" element={<Trash />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/modal" element={<HomeScreen />} />
           <Route path="/modal/:id" element={<HomeScreen />} />
         </Routes>

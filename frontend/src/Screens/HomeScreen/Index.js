@@ -18,7 +18,7 @@ function Index() {
       
 
       {/* post modal */}
-      {location.pathname.includes("modal") && <PostModal />}
+      {location?.pathname?.includes("modal") && <PostModal />}
     </div>
   );
 }
