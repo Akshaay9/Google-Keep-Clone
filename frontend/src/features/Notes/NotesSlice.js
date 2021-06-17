@@ -111,7 +111,29 @@ export const updatedNote = createAsyncThunk(
   }
 );
 
-// update a archieve
+// archieve  post
+export const archieveNote = createAsyncThunk(
+  "notes/archieve",
+  async (dataToBeSent, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": dataToBeSent.token,
+      },
+    };
+    try {
+      const data = await axios.post(
+        `http://localhost:5000/api/post/${dataToBeSent.id}/addToArchieve`,
+        null,
+        config
+      );
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const NotesSlice = createSlice({
   name: "Notes",
@@ -135,6 +157,12 @@ export const NotesSlice = createSlice({
             }
           : ele
       );
+    },
+    addToArchieve: (state, { payload }) => {
+      console.log(payload);
+      let individualNote = state.notes.find((ele) => ele._id == payload);
+      state.notes = state.notes.filter((ele) => ele._id !== payload);
+      state.archieves.unshift(individualNote);
     },
   },
   extraReducers: {
@@ -173,9 +201,17 @@ export const NotesSlice = createSlice({
       state.loginStatus = "success";
       state.notes.unshift(payload);
     },
+    [archieveNote.pending]: (state, action) => {
+      state.status = "pending";
+    },
+    [archieveNote.fulfilled]: (state, { payload }) => {
+      state.loginStatus = "success";
+      state.archieves = payload;
+    },
   },
 });
 
-export const { pinUnpin, updateNoteLocally } = NotesSlice.actions;
+export const { pinUnpin, updateNoteLocally, addToArchieve } =
+  NotesSlice.actions;
 
 export default NotesSlice.reducer;

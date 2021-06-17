@@ -10,7 +10,7 @@ export const getAllPosts = async (req, res) => {
 };
 
 export const addPost = async (req, res) => {
-  const { title, description, color, label,isPinned } = req.body;
+  const { title, description, color, label, isPinned } = req.body;
   const { user } = req;
 
   const newPost = {
@@ -45,7 +45,7 @@ export const moveToArchieves = async (req, res) => {
   });
   await newArchieve.save();
   await Post.findByIdAndDelete(individualPost._id);
-  const allPosts = await Post.find({ user: req.user.id });
+  const allPosts = await Archieve.find({ user: req.user.id });
   return res.status(200).json(allPosts);
 };
 export const moveToTrash = async (req, res) => {

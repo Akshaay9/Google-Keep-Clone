@@ -1,5 +1,10 @@
 import React from "react";
-import { pinUnpin, updatedNote } from "../../features/Notes/NotesSlice";
+import {
+  archieveNote,
+  pinUnpin,
+  updatedNote,
+  addToArchieve,
+} from "../../features/Notes/NotesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function Notes({ ele, noteType }) {
@@ -37,7 +42,17 @@ function Notes({ ele, noteType }) {
       </div>
       <div className="note-r4 ">
         {noteType == "notes" ? (
-          <i class="fas fa-archive"></i>
+          <i
+            class="fas fa-archive"
+            onClick={() => {
+              const dataToBeSent = {
+                id: ele._id,
+                token,
+              };
+              dispatch(addToArchieve(ele._id));
+              dispatch(archieveNote(dataToBeSent));
+            }}
+          ></i>
         ) : noteType == "archieve" ? (
           <i class="fas fa-archive rotate180"></i>
         ) : (

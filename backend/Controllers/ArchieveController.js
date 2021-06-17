@@ -15,17 +15,11 @@ export const updateArchieve = async (req, res) => {
   individualPost = extend(individualPost, updatedPost);
   await individualPost.save();
   return res.status(200).json(individualPost);
-}
+};
 
 export const moveToTrash = async (req, res) => {
   let { individualPost } = req;
-  const newTrash = new Trash
-    
-  
-  
-  
-  
-    ({
+  const newTrash = new Trash({
     title: individualPost.title,
     description: individualPost.description,
     color: individualPost.color,
@@ -51,6 +45,6 @@ export const moveToPost = async (req, res) => {
   });
   await newArchieve.save();
   await Archieve.findByIdAndDelete(individualPost._id);
-  const allPosts = await Archieve.find({ user: req.user.id });
+  const allPosts = await Post.find({ user: req.user.id });
   return res.status(200).json(allPosts);
 };
