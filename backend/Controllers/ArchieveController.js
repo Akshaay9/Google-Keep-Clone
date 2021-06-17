@@ -29,7 +29,7 @@ export const moveToTrash = async (req, res) => {
   });
   await newTrash.save();
   await Archieve.findByIdAndDelete(individualPost._id);
-  const allPosts = await Archieve.find({ user: req.user.id });
+  const allPosts = await Trash.find({ user: req.user.id });
   return res.status(200).json(allPosts);
 };
 
