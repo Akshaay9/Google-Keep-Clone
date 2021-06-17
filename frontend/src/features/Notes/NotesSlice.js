@@ -260,7 +260,7 @@ export const restoreFromTrash = createAsyncThunk(
   }
 );
 
-// restore
+// delete tag permanenlt
 export const deleteTrashPermannently = createAsyncThunk(
   "notes/deleteTrashPErmannetly",
   async (dataToBeSent, { rejectWithValue }) => {
@@ -273,6 +273,32 @@ export const deleteTrashPermannently = createAsyncThunk(
     try {
       const data = await axios.delete(
         `http://localhost:5000/api/trash/${dataToBeSent.id}`,
+        config
+      );
+
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      console.log(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// add label
+export const addNewLabel = createAsyncThunk(
+  "notes/deleteTrashPErmannetly",
+  async (dataToBeSent, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": dataToBeSent.token,
+      },
+    };
+    try {
+      const data = await axios.post(
+        `http://localhost:5000/api/label`,
+        dataToBeSent.data,
         config
       );
 
@@ -380,10 +406,14 @@ export const NotesSlice = createSlice({
       );
       state.searchedNote = [...noteSearch, ...archieveSearch];
     },
-    clearSearch:(state,{payload})=>{
-      state.searchedNote=[]
-    }
+    clearSearch: (state, { payload }) => {
+      state.searchedNote = [];
+    },
+    addNoteLocally: (state, { payload }) => {
+      state.labels.unshift(payload);
+    },
   },
+  // labels
   extraReducers: {
     [getAllNotes.pending]: (state, action) => {
       state.status = "pending";
@@ -459,6 +489,13 @@ export const NotesSlice = createSlice({
         state.archieves = payload.data;
       }
     },
+    [addNewLabel.pending]: (state, action) => {
+      state.status = "pending";
+    },
+    [addNewLabel.fulfilled]: (state, { payload }) => {
+      state.status = "success";
+      state.labels = payload;
+    },
   },
 });
 
@@ -473,25 +510,8 @@ export const {
   restoreTrash,
   deletePermanently,
   searchNotes,
-  clearSearch
+  clearSearch,
+  addNoteLocally,
 } = NotesSlice.actions;
 
 export default NotesSlice.reducer;
-
-//  searchNotes: (state, { payload }) => {
-// let noteSearch = state.notes.filter(
-//       (ele) =>
-//         ele.title.toString().toLowerCase().includes() ===
-//           payload.toString().toLowerCase() ||
-//         ele.description.toString().toLowerCase().includes() ===
-//           payload.toString().toLowerCase()
-//     );
-//     let archieveSearch = state.archieves.filter(
-//       (ele) =>
-//         ele.title.trim().toString().toLowerCase().includes() ===
-//           payload.toString().toLowerCase() ||
-//         ele.description.toString().toLowerCase().includes() ===
-//           payload.toString().toLowerCase()
-//     );
-//     state.searchedNote = [...noteSearch,...archieveSearch];
-//   },

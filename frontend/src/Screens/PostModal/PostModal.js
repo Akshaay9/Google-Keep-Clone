@@ -12,12 +12,15 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addNewLabel,
+  addNoteLocally,
   updateArchieveLocally,
   updatedArchive,
   updatedNote,
   updateNoteLocally,
   uploadNote,
 } from "../../features/Notes/NotesSlice";
+import { v4 as uuidv4 } from "uuid";
 function PostModal() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,6 +42,8 @@ function PostModal() {
     label: [],
   });
 
+  const [labelInput, setLabelInput] = useState("");
+
   const cleanUp = () => {
     setFormData({
       title: "",
@@ -47,6 +52,7 @@ function PostModal() {
       isPinned: false,
       label: [],
     });
+    setLabelInput("");
   };
 
   const closeModal = (e) => {
@@ -66,6 +72,27 @@ function PostModal() {
         ? ele.label.filter((ele) => ele != tag)
         : [tag, ...ele.label],
     }));
+  };
+
+  const addComment = (e) => {
+    e.preventDefault();
+    if (!labels.find((ele) => ele.text === labelInput)) {
+      const newComent = {
+        isEditabel: false,
+        _id: uuidv4,
+        text: labelInput,
+      };
+      setLabelInput("");
+      dispatch(addNoteLocally(newComent));
+
+      const dataToBeSent = {
+        token,
+        data: {
+          text: labelInput,
+        },
+      };
+      dispatch(addNewLabel(dataToBeSent));
+    }
   };
 
   const removeLabel = (tag) => {
@@ -199,11 +226,15 @@ function PostModal() {
                 </PopoverTrigger>
                 <PopoverContent>
                   <PopoverBody>
-                    <Input
-                      placeholder="Enter a new label..."
-                      size="xs"
-                      variant="filled"
-                    />
+                    <form onSubmit={(e) => addComment(e)}>
+                      <Input
+                        placeholder="Enter a new label..."
+                        size="xs"
+                        variant="filled"
+                        value={labelInput}
+                        onChange={(e) => setLabelInput(e.target.value)}
+                      />
+                    </form>
                     <Stack spacing={0} direction="column">
                       {labels?.length > 0 &&
                         labels?.map((ele) => (
