@@ -183,6 +183,56 @@ export const unArchieveNote = createAsyncThunk(
   }
 );
 
+// move post to trash
+export const noteToTrash = createAsyncThunk(
+  "notes/notetrash",
+  async (dataToBeSent, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": dataToBeSent.token,
+      },
+    };
+    try {
+      const data = await axios.post(
+        `http://localhost:5000/api/post/${dataToBeSent.id}/addToTrash`,
+        null,
+        config
+      );
+      console.log(data.data);
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// move archieve to trash
+export const archieveToTrash = createAsyncThunk(
+  "notes/archieveTrash",
+  async (dataToBeSent, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": dataToBeSent.token,
+      },
+    };
+    try {
+      const data = await axios.post(
+        `http://localhost:5000/api/archieve/${dataToBeSent.id}/addToTrash`,
+        null,
+        config
+      );
+      console.log(data.data);
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const NotesSlice = createSlice({
   name: "Notes",
   initialState,
@@ -224,6 +274,16 @@ export const NotesSlice = createSlice({
       let individualNote = state.archieves.find((ele) => ele._id == payload);
       state.archieves = state.archieves.filter((ele) => ele._id !== payload);
       state.notes.unshift(individualNote);
+    },
+    addNoteToTrash: (state, { payload }) => {
+      let individualNote = state.notes.find((ele) => ele._id == payload);
+      state.notes = state.notes.filter((ele) => ele._id !== payload);
+      state.trash.unshift(individualNote);
+    },
+    addArchieveToTrash: (state, { payload }) => {
+      let individualNote = state.archieves.find((ele) => ele._id == payload);
+      state.archieves = state.archieves.filter((ele) => ele._id !== payload);
+      state.trash.unshift(individualNote);
     },
   },
   extraReducers: {
@@ -276,6 +336,20 @@ export const NotesSlice = createSlice({
       state.status = "success";
       state.notes = payload;
     },
+    [noteToTrash.pending]: (state, action) => {
+      state.status = "pending";
+    },
+    [noteToTrash.fulfilled]: (state, { payload }) => {
+      state.status = "success";
+      state.trash = payload;
+    },
+    [archieveToTrash.pending]: (state, action) => {
+      state.status = "pending";
+    },
+    [archieveToTrash.fulfilled]: (state, { payload }) => {
+      state.status = "success";
+      state.trash = payload;
+    },
   },
 });
 
@@ -285,6 +359,8 @@ export const {
   addToArchieve,
   unArchieve,
   updateArchieveLocally,
+  addNoteToTrash,
+  addArchieveToTrash,
 } = NotesSlice.actions;
 
 export default NotesSlice.reducer;

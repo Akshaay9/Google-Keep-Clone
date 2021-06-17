@@ -6,11 +6,14 @@ import {
   addToArchieve,
   unArchieveNote,
   unArchieve,
+  addNoteToTrash,
+  addArchieveToTrash,
+  noteToTrash,
+  archieveToTrash,
 } from "../../features/Notes/NotesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function Notes({ ele, noteType }) {
-
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User);
   const navigate = useNavigate();
@@ -64,22 +67,47 @@ function Notes({ ele, noteType }) {
                 id: ele._id,
                 token,
               };
-              dispatch(unArchieve(ele._id))
+              dispatch(unArchieve(ele._id));
               dispatch(unArchieveNote(dataToBeSent));
             }}
           ></i>
         ) : (
           ""
         )}
-        <i class="fas fa-trash"></i>
-        <i
-          class="fas fa-pencil-alt"
-          onClick={() =>
-            navigate(`/modal/${ele._id}?update=true`, {
-              state: { from: noteType },
-            })
-          }
-        ></i>
+        {noteType != "trash" && (
+          <i
+            class="fas fa-trash"
+            onClick={() => {
+              let dataToBeSent = {
+                id: ele._id,
+                token,
+              };
+              if (noteType == "notes") {
+                // dispatch(addNoteToTrash(ele._id)),
+                dispatch(noteToTrash(dataToBeSent));
+              } else {
+                dispatch(addArchieveToTrash(ele._id));
+                dispatch(archieveToTrash(dataToBeSent));
+              }
+            }}
+          ></i>
+        )}
+        {noteType != "trash" && (
+          <i
+            class="fas fa-pencil-alt"
+            onClick={() =>
+              navigate(`/modal/${ele._id}?update=true`, {
+                state: { from: noteType },
+              })
+            }
+          ></i>
+        )}
+        {noteType == "trash" && (
+          <div className="note-r5 ">
+            {<h3>Delete</h3>}
+            {<h3>Restore</h3>}
+          </div>
+        )}
       </div>
     </div>
   );

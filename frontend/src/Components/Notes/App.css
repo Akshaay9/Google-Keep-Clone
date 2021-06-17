@@ -77,4 +77,12 @@
 .note-card i:hover {
   color: black;
 }
-
+.note-r5 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.note-r5 h3 {
+  /* border:1px solid #f1f3f4; */
+  font-weight: bold;
+}
