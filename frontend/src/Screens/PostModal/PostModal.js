@@ -12,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  updateArchieveLocally,
+  updatedArchive,
   updatedNote,
   updateNoteLocally,
   uploadNote,
@@ -22,10 +24,12 @@ function PostModal() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User);
-  const { labels, notes } = useSelector((state) => state.Notes);
+  const { labels, notes, archieves } = useSelector((state) => state.Notes);
+
   const prevPath = location?.state?.from;
 
   console.log(prevPath);
+  // archieve
 
   const [formData, setFormData] = useState({
     title: "",
@@ -47,7 +51,11 @@ function PostModal() {
 
   const closeModal = (e) => {
     if (e.target.classList.contains("modalContainer")) {
-      navigate("/");
+      if (prevPath == "notes") {
+        navigate("/");
+      } else if (prevPath == "archieve") {
+        navigate("/archieves");
+      } else navigate("/");
     }
   };
 
@@ -77,19 +85,38 @@ function PostModal() {
       if (prevPath == "notes") {
         dispatch(updatedNote(dataToBeSent));
         dispatch(updateNoteLocally({ id, data: formData }));
+        cleanUp();
+        if (prevPath == "notes") {
+          navigate("/");
+        } else {
+          navigate("/archieves");
+        }
       } else {
+        dispatch(updateArchieveLocally({ id, data: formData }));
+        dispatch(updatedArchive(dataToBeSent));
+        cleanUp();
+        if (prevPath == "notes") {
+          navigate("/");
+        } else {
+          navigate("/archieves");
+        }
       }
     } else {
       dispatch(uploadNote(dataToBeSent));
+      cleanUp();
+      navigate("/");
     }
-
-    cleanUp();
-    navigate("/");
   };
 
   useEffect(() => {
     if (location?.search?.split("=")[1] == "true") {
-      let updatableNote = notes?.find((ele) => ele._id == id);
+      let updatableNote;
+
+      if (prevPath == "notes") {
+        updatableNote = notes?.find((ele) => ele._id == id);
+      } else if (prevPath == "archieve") {
+        updatableNote = archieves?.find((ele) => ele._id == id);
+      }
       setFormData((ele) => ({
         title: updatableNote?.title || "",
         description: updatableNote?.description || "",

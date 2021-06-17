@@ -110,6 +110,29 @@ export const updatedNote = createAsyncThunk(
     }
   }
 );
+//  update archive
+export const updatedArchive = createAsyncThunk(
+  "archive/update",
+  async (dataToBeSent, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": dataToBeSent.token,
+      },
+    };
+    try {
+      const data = await axios.post(
+        `http://localhost:5000/api/archieve/${dataToBeSent.id}`,
+        dataToBeSent.data,
+        config
+      );
+      console.log(data.data);
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 // archieve  post
 export const archieveNote = createAsyncThunk(
@@ -183,6 +206,15 @@ export const NotesSlice = createSlice({
           : ele
       );
     },
+    updateArchieveLocally: (state, { payload }) => {
+      state.archieves = state.archieves.map((ele) =>
+        ele._id == payload.id
+          ? {
+              ...extend(ele, payload.data),
+            }
+          : ele
+      );
+    },
     addToArchieve: (state, { payload }) => {
       let individualNote = state.notes.find((ele) => ele._id == payload);
       state.notes = state.notes.filter((ele) => ele._id !== payload);
@@ -247,7 +279,12 @@ export const NotesSlice = createSlice({
   },
 });
 
-export const { pinUnpin, updateNoteLocally, addToArchieve, unArchieve } =
-  NotesSlice.actions;
+export const {
+  pinUnpin,
+  updateNoteLocally,
+  addToArchieve,
+  unArchieve,
+  updateArchieveLocally,
+} = NotesSlice.actions;
 
 export default NotesSlice.reducer;

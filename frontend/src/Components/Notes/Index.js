@@ -10,10 +10,10 @@ function Index() {
   useEffect(() => {
     const pinnedNotes = notes?.filter((ele) => ele.isPinned == true);
     setPinnedNotes(pinnedNotes);
-    console.log(pinnedNotes);
+ 
     const unpinnedNotes = notes?.filter((ele) => ele.isPinned == false);
     setNotPinnedNotes(unpinnedNotes);
-    console.log(unpinnedNotes);
+   
   }, [notes, status]);
   return (
     <div>
