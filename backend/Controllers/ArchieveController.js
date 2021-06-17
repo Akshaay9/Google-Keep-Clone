@@ -42,6 +42,7 @@ export const moveToPost = async (req, res) => {
     color: individualPost.color,
     label: individualPost.label,
     user: req.user.id,
+    isPinned: false,
   });
   await newArchieve.save();
   await Archieve.findByIdAndDelete(individualPost._id);

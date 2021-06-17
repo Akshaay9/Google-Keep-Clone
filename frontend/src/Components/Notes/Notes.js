@@ -4,14 +4,17 @@ import {
   pinUnpin,
   updatedNote,
   addToArchieve,
+  unArchieveNote,
+  unArchieve,
 } from "../../features/Notes/NotesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function Notes({ ele, noteType }) {
+  console.log(ele);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User);
   const navigate = useNavigate();
-  console.log(noteType);
+
   return (
     <div className="note-card" style={{ backgroundColor: `${ele?.color}` }}>
       <div className="note-r1 ">
@@ -54,7 +57,17 @@ function Notes({ ele, noteType }) {
             }}
           ></i>
         ) : noteType == "archieve" ? (
-          <i class="fas fa-archive rotate180"></i>
+          <i
+            class="fas fa-archive rotate180"
+            onClick={() => {
+              const dataToBeSent = {
+                id: ele._id,
+                token,
+              };
+              dispatch(unArchieve(ele._id))
+              dispatch(unArchieveNote(dataToBeSent));
+            }}
+          ></i>
         ) : (
           ""
         )}

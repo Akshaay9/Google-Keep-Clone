@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Notes from "../../Components/Notes/Notes";
 function Archieves() {
   const { archieves } = useSelector((state) => state.Notes);
-  console.log(archieves);
   return (
     <div>
       <h3 className="heading">Archieves</h3>

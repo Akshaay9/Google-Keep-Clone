@@ -127,6 +127,31 @@ export const archieveNote = createAsyncThunk(
         null,
         config
       );
+
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+// unarchieve  post
+export const unArchieveNote = createAsyncThunk(
+  "notes/unarchieve",
+  async (dataToBeSent, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": dataToBeSent.token,
+      },
+    };
+    try {
+      const data = await axios.post(
+        `http://localhost:5000/api/archieve/${dataToBeSent.id}/addToPost`,
+        null,
+        config
+      );
+      console.log(data.data);
       return data.data;
     } catch (error) {
       console.log(error);
@@ -159,10 +184,14 @@ export const NotesSlice = createSlice({
       );
     },
     addToArchieve: (state, { payload }) => {
-      console.log(payload);
       let individualNote = state.notes.find((ele) => ele._id == payload);
       state.notes = state.notes.filter((ele) => ele._id !== payload);
       state.archieves.unshift(individualNote);
+    },
+    unArchieve: (state, { payload }) => {
+      let individualNote = state.archieves.find((ele) => ele._id == payload);
+      state.archieves = state.archieves.filter((ele) => ele._id !== payload);
+      state.notes.unshift(individualNote);
     },
   },
   extraReducers: {
@@ -170,48 +199,55 @@ export const NotesSlice = createSlice({
       state.status = "pending";
     },
     [getAllNotes.fulfilled]: (state, { payload }) => {
-      state.loginStatus = "success";
+      state.status = "success";
       state.notes = payload;
     },
     [getAllTags.pending]: (state, action) => {
       state.status = "pending";
     },
     [getAllTags.fulfilled]: (state, { payload }) => {
-      state.loginStatus = "success";
+      state.status = "success";
       state.labels = payload;
     },
     [getAllTrash.pending]: (state, action) => {
       state.status = "pending";
     },
     [getAllTrash.fulfilled]: (state, { payload }) => {
-      state.loginStatus = "success";
+      state.status = "success";
       state.trash = payload;
     },
     [getAllArchieves.pending]: (state, action) => {
       state.status = "pending";
     },
     [getAllArchieves.fulfilled]: (state, { payload }) => {
-      state.loginStatus = "success";
+      state.status = "success";
       state.archieves = payload;
     },
     [uploadNote.pending]: (state, action) => {
       state.status = "pending";
     },
     [uploadNote.fulfilled]: (state, { payload }) => {
-      state.loginStatus = "success";
+      state.status = "success";
       state.notes.unshift(payload);
     },
     [archieveNote.pending]: (state, action) => {
       state.status = "pending";
     },
     [archieveNote.fulfilled]: (state, { payload }) => {
-      state.loginStatus = "success";
+      state.status = "success";
       state.archieves = payload;
+    },
+    [unArchieveNote.pending]: (state, action) => {
+      state.status = "pending";
+    },
+    [unArchieveNote.fulfilled]: (state, { payload }) => {
+      state.status = "success";
+      state.notes = payload;
     },
   },
 });
 
-export const { pinUnpin, updateNoteLocally, addToArchieve } =
+export const { pinUnpin, updateNoteLocally, addToArchieve, unArchieve } =
   NotesSlice.actions;
 
 export default NotesSlice.reducer;

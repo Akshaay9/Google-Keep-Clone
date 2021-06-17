@@ -14,6 +14,7 @@ const postSchema = mongoose.Schema(
     },
     isPinned: {
       type: Boolean,
+      
 
     },
     color: {

@@ -3,16 +3,18 @@ import "./App.css";
 import Notes from "./Notes";
 import { useDispatch, useSelector } from "react-redux";
 function Index() {
-  const { notes } = useSelector((state) => state.Notes);
+  const { notes, status } = useSelector((state) => state.Notes);
   const [pinnedNotes, setPinnedNotes] = useState([]);
   const [notPinnedNotes, setNotPinnedNotes] = useState([]);
 
   useEffect(() => {
     const pinnedNotes = notes?.filter((ele) => ele.isPinned == true);
     setPinnedNotes(pinnedNotes);
+    console.log(pinnedNotes);
     const unpinnedNotes = notes?.filter((ele) => ele.isPinned == false);
     setNotPinnedNotes(unpinnedNotes);
-  }, [notes]);
+    console.log(unpinnedNotes);
+  }, [notes, status]);
   return (
     <div>
       <div className="pinnedNotes">
