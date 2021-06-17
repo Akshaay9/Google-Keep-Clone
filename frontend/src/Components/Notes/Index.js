@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Index() {
   const { notes } = useSelector((state) => state.Notes);
   const [pinnedNotes, setPinnedNotes] = useState([]);
-  const[notPinnedNotes,setNotPinnedNotes]=useState([])
+  const [notPinnedNotes, setNotPinnedNotes] = useState([]);
 
   useEffect(() => {
     const pinnedNotes = notes?.filter((ele) => ele.isPinned == true);
@@ -21,7 +21,9 @@ function Index() {
             <h3>Pinned Notes</h3>
             <div className="notes-container pinned-notes-container">
               {pinnedNotes?.length > 0 &&
-                pinnedNotes.map((ele) => <Notes ele={ele} />)}
+                pinnedNotes.map((ele) => (
+                  <Notes ele={ele} noteType={"notes"} />
+                ))}
             </div>
           </>
         )}
@@ -32,7 +34,9 @@ function Index() {
             <h3>UnPinned Notes</h3>
             <div className="notes-container pinned-notes-container">
               {notPinnedNotes?.length > 0 &&
-                notPinnedNotes.map((ele) => <Notes ele={ele} />)}
+                notPinnedNotes.map((ele) => (
+                  <Notes ele={ele} noteType={"notes"} />
+                ))}
             </div>
           </>
         )}

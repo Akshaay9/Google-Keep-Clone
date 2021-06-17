@@ -12,8 +12,6 @@ function Index() {
       {/* post bar */}
       <PostBar />
 
-      {/* pinned notes */}
-
       {/* notes */}
       <Notes/>
 

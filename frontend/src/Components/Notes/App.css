@@ -13,13 +13,13 @@
   border-radius: 0.7rem;
   animation: iconanimation 1000ms ease-in-out;
 }
-.pinnedNotes>h3 {
+.pinnedNotes > h3 {
   width: 70%;
   margin: auto;
-  padding: .5rem ;
+  padding: 0.5rem;
   font-weight: bold;
 }
-.pinned-notes-container{
+.pinned-notes-container {
   margin-bottom: 2rem;
 }
 @keyframes iconanimation {
@@ -77,3 +77,4 @@
 .note-card i:hover {
   color: black;
 }
+

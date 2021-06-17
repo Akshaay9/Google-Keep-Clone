@@ -1,19 +1,24 @@
 import React from "react";
 import "./Sidebar.css";
+import { Link } from "react-router-dom";
 function SideBar({ isOpen }) {
   return (
     <div>
       <div className={`side-bar ${isOpen ? "transform100" : ""}`}>
         <ul className="">
-          <li>
-            <i class="far fa-lightbulb "></i> <span>Notes</span>
-          </li>
+          <Link to="/">
+            <li>
+              <i class="far fa-lightbulb "></i> <span>Notes</span>
+            </li>
+          </Link>
           <li>
             <i class="fas fa-pencil-alt"></i> <span>Edit labels</span>
           </li>
-          <li>
-            <i class="fas fa-archive"></i> <span>Archieves</span>
-          </li>
+          <Link to="/archieves">
+            <li>
+              <i class="fas fa-archive"></i> <span>Archieves</span>{" "}
+            </li>
+          </Link>
           <li>
             <i class="fas fa-trash"></i> <span>Trash</span>
           </li>
