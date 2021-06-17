@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import pkg from "lodash";
+const { extend } = pkg;
 const initialState = {
   notes: [],
   archieves: [],
@@ -109,6 +111,8 @@ export const updatedNote = createAsyncThunk(
   }
 );
 
+// update a archieve
+
 export const NotesSlice = createSlice({
   name: "Notes",
   initialState,
@@ -123,9 +127,15 @@ export const NotesSlice = createSlice({
           : ele
       );
     },
-    updateNote: (state, { payload }) => {
-      
-    }
+    updateNoteLocally: (state, { payload }) => {
+      state.notes = state.notes.map((ele) =>
+        ele._id == payload.id
+          ? {
+              ...extend(ele, payload.data),
+            }
+          : ele
+      );
+    },
   },
   extraReducers: {
     [getAllNotes.pending]: (state, action) => {
@@ -166,6 +176,6 @@ export const NotesSlice = createSlice({
   },
 });
 
-export const { pinUnpin } = NotesSlice.actions;
+export const { pinUnpin, updateNoteLocally } = NotesSlice.actions;
 
 export default NotesSlice.reducer;

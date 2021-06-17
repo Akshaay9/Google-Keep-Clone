@@ -11,7 +11,11 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadNote } from "../../features/Notes/NotesSlice";
+import {
+  updatedNote,
+  updateNoteLocally,
+  uploadNote,
+} from "../../features/Notes/NotesSlice";
 function PostModal() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,6 +23,9 @@ function PostModal() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User);
   const { labels, notes } = useSelector((state) => state.Notes);
+  const prevPath = location?.state?.from;
+
+  console.log(prevPath);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -62,13 +69,16 @@ function PostModal() {
 
   const formHandler = () => {
     const dataToBeSent = {
+      id,
       data: formData,
       token,
     };
-
-
     if (location?.search?.split("=")[1] == "true") {
-      
+      if (prevPath == "notes") {
+        dispatch(updatedNote(dataToBeSent));
+        dispatch(updateNoteLocally({ id, data: formData }));
+      } else {
+      }
     } else {
       dispatch(uploadNote(dataToBeSent));
     }
@@ -89,8 +99,6 @@ function PostModal() {
       }));
     }
   }, [location, notes]);
-
-  console.log(formData);
 
   return (
     <div>
@@ -195,9 +203,5 @@ function PostModal() {
     </div>
   );
 }
-
-// {console.log(
-//   formData.label.some((label) => label == ele)
-// // )}
 
 export default PostModal;

@@ -37,7 +37,11 @@ function Notes({ ele }) {
         <i class="fas fa-trash"></i>
         <i
           class="fas fa-pencil-alt"
-          onClick={() => navigate(`/modal/${ele._id}?update=true`)}
+          onClick={() =>
+            navigate(`/modal/${ele._id}?update=true`, {
+              state: { from: "notes" },
+            })
+          }
         ></i>
       </div>
     </div>
