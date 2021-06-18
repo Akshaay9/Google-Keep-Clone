@@ -1,5 +1,5 @@
-import Trash from "../Models/Trash.model.js";
-import Post from "../Models/Post.model.js";
+import Trash from "../Models/Trash.Model.js";
+import Post from "../Models/Post.Model.js";
 export const getIndividualTrash = async (req, res, next, id) => {
   try {
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {
