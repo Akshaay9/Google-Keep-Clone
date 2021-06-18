@@ -13,7 +13,9 @@ import {
 import Archieves from "./Screens/Archieves/Archieves";
 import Trash from "./Screens/Trash/Trash";
 import Search from "./Screens/Search/Search";
-import BottomNav from "./Screens/BottomNav/BottomNav"
+import BottomNav from "./Screens/BottomNav/BottomNav";
+import LandingPage from "./Screens/UserAccount/LandingPage";
+
 function App() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User);
@@ -38,8 +40,11 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/modal" element={<HomeScreen />} />
           <Route path="/modal/:id" element={<HomeScreen />} />
+          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/landing/login" element={<LandingPage />} />
+          <Route path="/landing/signup" element={<LandingPage />} />
         </Routes>
-        <BottomNav/>
+        <BottomNav />
       </BrowserRouter>
     </div>
   );

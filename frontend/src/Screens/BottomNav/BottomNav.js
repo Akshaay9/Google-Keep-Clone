@@ -1,9 +1,12 @@
 import React from "react";
 import "./App.css";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 function BottomNav() {
+  const location = useLocation();
   return (
     <div>
+       {!location?.pathname?.includes("landing") && (
       <div className="bottom-nav mobileHide ">
         <ul>
           <Link to="/">
@@ -24,7 +27,9 @@ function BottomNav() {
             </li>
           </Link>
         </ul>
-      </div>
+        </div>
+        )}
+        
     </div>
   );
 }

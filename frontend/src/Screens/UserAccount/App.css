@@ -1,0 +1,93 @@
+.landing-bg {
+  background-image: url(https://i.ibb.co/ZJC6s3G/162399231639714940-1.jpg);
+  height: 100vh;
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: 100%;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #000;
+  position: relative;
+  color: white;
+}
+.landing-bg-container {
+  position: absolute;
+  top: 20%;
+  left: 5%;
+}
+.landing-bg-subtitle {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0rem 1rem 0rem;
+  color: #fbbc04;
+}
+.landing-bg-subtitle span {
+  display: block;
+  width: 5%;
+  border-top: 2px solid #ccc;
+}
+.landing-bg-subtitle h4 {
+  margin-left: 1rem;
+}
+.landing-bg-maintitle {
+  width: 50%;
+}
+.landing-bg-maintitle h1 {
+  font-size: 2rem;
+  font-family: var(--font-sans-serif);
+  line-height: 2.5rem;
+  margin: 0 0 0.3rem;
+  padding-right: 0;
+  /* color: #bbbb4b; */
+}
+.landing-bg-points {
+  padding: 1rem 1rem;
+}
+.landing-bg-points ul li {
+  list-style: circle !important;
+  font-family: sans-serif;
+  line-height: 2rem;
+}
+.landing-bg button {
+  padding: 0.5rem 3.2rem;
+  margin-left: 2rem;
+  margin-top: 0.6rem;
+}
+
+.landing-bg button {
+  border: none;
+  outline: none;
+  border-radius: 0.2rem;
+}
+
+.landing-bg-signup {
+  background-color: #fbbc04;
+  color: white;
+  font-weight: bold;
+}
+.landing-bg-login {
+  font-weight: bold;
+  background-color: white;
+  color: black;
+}
+
+.landing-bg-logo {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+@media screen and (max-width: 43.25rem) {
+  .landing-bg {
+    height: 112vh;
+    background-position: center;
+  }
+  .landing-bg-container {
+    position: absolute;
+    top: 10%;
+    left: 5%;
+  }
+  .landing-bg-maintitle {
+    width: 80%;
+  }
+}
