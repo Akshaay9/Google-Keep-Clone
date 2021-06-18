@@ -21,7 +21,7 @@ app.listen(PORT, () =>
 dbConnection();
 
 app.get("/", (req, res) => {
-  console.log("hello, welcome to google keep");
+  res.status(200).json("hello, welcome to google keep");
 });
 
 // routes
