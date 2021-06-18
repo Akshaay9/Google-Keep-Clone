@@ -1,6 +1,6 @@
 import Post from "../Models/Post.Model.js";
 import pkg from "lodash";
-import Archieve from "../Models/Archive.Model.js";
+import Archieve from "../Models/Archieve.Model.js";
 import Trash from "../Models/Trash.Model.js";
 const { extend } = pkg;
 

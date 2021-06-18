@@ -1,7 +1,7 @@
 import Post from "../Models/Post.Model.js";
 import pkg from "lodash";
 import Trash from "../Models/Trash.Model.js";
-import Archieve from "../Models/Archive.Model.js";
+import Archieve from "../Models/Archieve.Model.js";
 const { extend } = pkg;
 
 export const trashedPosts = async (req, res) => {

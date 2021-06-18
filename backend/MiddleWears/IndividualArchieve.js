@@ -1,4 +1,4 @@
-import Archieve from "../Models/Archive.Model.js";
+import Archieve from "../Models/Archieve.Model.js";
 import Post from "../Models/Post.Model.js";
 export const getIndividualArchieve = async (req, res, next, id) => {
   try {
