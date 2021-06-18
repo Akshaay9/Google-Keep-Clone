@@ -1,4 +1,4 @@
-import Post from "../Models/Post.model.js";
+import Post from "../Models/PostModel.js";
 export const getIndividualPost = async (req, res, next, id) => {
   try {
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {

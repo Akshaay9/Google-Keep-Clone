@@ -1,4 +1,4 @@
-import Label from "../Models/Label.model.js";
+import Label from "../Models/LabelModel.js";
 export const getIndividuaLabel = async (req, res, next, id) => {
   try {
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {

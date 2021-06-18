@@ -1,6 +1,6 @@
 import { UsersList } from "./Data/UserData.js";
 import dbConnection from "./DB.js"
-import User from "./Models/User.Model.js";
+import User from "./Models/User.model.js";
 
 
 dbConnection()

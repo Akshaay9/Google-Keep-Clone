@@ -1,5 +1,5 @@
 import assignJWT from "../MiddleWears/AssignJWT.js";
-import Users from "../Models/User.model.js";
+import Users from "../Models/UserModel.js";
 import bcrypt from "bcryptjs";
 
 

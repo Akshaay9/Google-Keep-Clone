@@ -1,5 +1,5 @@
-import Archieve from "../Models/Archieve.model.js";
-import Post from "../Models/Post.model.js";
+import Archieve from "../Models/ArchieveModel.js";
+import Post from "../Models/PostModel.js";
 export const getIndividualArchieve = async (req, res, next, id) => {
   try {
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {
