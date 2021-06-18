@@ -18,6 +18,7 @@ import LandingPage from "./Screens/UserAccount/LandingPage";
 import PrivateRoute from "./PrivateRoute";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 function App() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User.User);
@@ -30,6 +31,12 @@ function App() {
       dispatch(getAllArchieves(token));
     }
   }, [token]);
+
+  useEffect(() => {
+    (async () => {
+      const data = await axios.get(`http://localhost:5000/`);
+    })();
+  }, []);
 
   return (
     <div>
