@@ -28,9 +28,18 @@ button[disabled] {
 .rotate180 {
   transform: rotate(180deg);
 }
+.mobileHide{
+  display: none;
+}
 
 @media screen and (max-width: 43.25rem) {
   * {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  }
+  .mobileHide{
+    display: block !important;
+  }
+  .desktopHide{
+    display: none !important;
   }
 }

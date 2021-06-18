@@ -30,7 +30,7 @@ function Index() {
           </>
         )}
       </div>
-      <div className="pinnedNotes">
+      <div className="pinnedNotes bottomm">
         {notPinnedNotes.length > 0 && (
           <>
             <h3>UnPinned Notes</h3>

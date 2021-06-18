@@ -166,3 +166,15 @@
   width: 60%;
   margin: auto !important;
 }
+@media screen and (max-width: 43.25rem) {
+  .modal-card {
+    background-color: white;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    width: 95%;
+    border-radius: 0.5rem;
+    padding: 0.7rem;
+  }
+}

@@ -47,3 +47,11 @@
   background-color: #f1f3f4;
   
   }
+
+  /*  */
+  @media screen and (max-width: 43.25rem) {
+    .nav_right{
+      margin-right: 0rem;
+      width: 29%;
+    }
+  }

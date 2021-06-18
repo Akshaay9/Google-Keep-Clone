@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Fixedsidebar({ isOpen }) {
   return (
     <div>
-      <div className={`fixed-bar ${isOpen ? "transform0" : ""} `}>
+      <div className={`desktopHide fixed-bar ${isOpen ? "transform0" : ""} `}>
         <ul>
           <Link to="/">
             <li>
@@ -12,22 +12,21 @@ function Fixedsidebar({ isOpen }) {
               <i class="far fa-lightbulb "></i>
             </li>
           </Link>
-          <li>
-            {" "}
-            <i class="fas fa-pencil-alt"></i>
-          </li>
+
           <Link to="/archieves">
             <li>
               {" "}
               <i class="fas fa-archive"></i>{" "}
             </li>
           </Link>
-          <li>
+   
             {" "}
             <Link to="/trash">
+            <li>
               <i class="fas fa-trash"></i>
+              </li>
             </Link>
-          </li>
+        
         </ul>
       </div>
     </div>

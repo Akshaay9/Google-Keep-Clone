@@ -32,14 +32,16 @@ function NavBar({ setOpen, isOpen }) {
     <div>
       <div class="nav ">
         <div class="nav_left ">
-          <Hamburger direction="right" toggled={isOpen} toggle={setOpen} />
+          <div className="desktopHide">
+            <Hamburger direction="right" toggled={isOpen} toggle={setOpen} />
+          </div>
           <div class="nav_logo">
             <img
               src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png"
               alt=""
             />
           </div>
-          <div class="nav_name">
+          <div class="nav_name desktopHide">
             <h3>Keep</h3>
           </div>
         </div>

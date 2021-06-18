@@ -86,3 +86,9 @@
   /* border:1px solid #f1f3f4; */
   font-weight: bold;
 }
+
+@media screen and (max-width: 43.25rem) {
+.bottomm{
+  margin-bottom: 6rem;
+}
+}
