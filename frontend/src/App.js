@@ -15,12 +15,12 @@ import Trash from "./Screens/Trash/Trash";
 import Search from "./Screens/Search/Search";
 import BottomNav from "./Screens/BottomNav/BottomNav";
 import LandingPage from "./Screens/UserAccount/LandingPage";
-import PrivateRoute from "./PrivateRoute"
+import PrivateRoute from "./PrivateRoute";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 function App() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User.User);
-
-  console.log(token);
 
   useEffect(() => {
     if (token) {
@@ -29,12 +29,21 @@ function App() {
       dispatch(getAllTrash(token));
       dispatch(getAllArchieves(token));
     }
-  }, []);
+  }, [token]);
 
   return (
     <div>
       <BrowserRouter>
         <NavBar />
+        <ToastContainer
+          position="top-right"
+          autoClose={30}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={true}
+          rtl={false}
+        />
+        <ToastContainer />
         <Routes>
           <PrivateRoute path="/" element={<HomeScreen />} />
           <PrivateRoute path="/archieves" element={<Archieves />} />

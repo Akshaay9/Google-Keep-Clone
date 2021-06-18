@@ -1,12 +1,20 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 function LandingPage() {
+  const navigate = useNavigate();
+  const { state } = useLocation();
   const location = useLocation();
+  const { token } = useSelector((state) => state.User.User);
+  if (token) {
+    navigate(state?.from ? state.from : "/");
+  }
+
   return (
     <>
       {location.pathname.includes("login") && <Login />}
@@ -26,7 +34,7 @@ function LandingPage() {
           </div>
           <div className="landing-bg-maintitle">
             <h1>
-             Application to pen down your thoughts, ideas and goals to be more{" "}
+              Application to pen down your thoughts, ideas and goals to be more{" "}
               <span style={{ color: "#fbbc04" }}>Productive.</span>
             </h1>
           </div>

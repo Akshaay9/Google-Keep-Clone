@@ -5,6 +5,9 @@ import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearSearch, searchNotes } from "../../features/Notes/NotesSlice";
+import { useNavigate } from "react-router-dom";
+import { logOut } from "../../features/Auth/AuthSlice";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -17,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 function NavBar({ setOpen, isOpen }) {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
-
+  const navigate = useNavigate();
   const classes = useStyles();
 
   useEffect(() => {
@@ -61,7 +64,14 @@ function NavBar({ setOpen, isOpen }) {
             src="https://upload.wikimedia.org/wikipedia/commons/0/07/Kai_at_a_Launching_Press_Conference_on_October_2%2C_2019_3.jpg"
             className={classes.root}
           />
-          <i class="fas fa-sign-out-alt"></i>
+          <i
+            class="fas fa-sign-out-alt"
+            onClick={() => {
+              dispatch(logOut());
+              toast.error(`user has been logged out`);
+              navigate("/landing");
+            }}
+          ></i>
         </div>
       </div>
     </div>

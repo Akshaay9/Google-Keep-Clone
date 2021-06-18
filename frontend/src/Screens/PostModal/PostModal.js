@@ -20,6 +20,7 @@ import {
   updateNoteLocally,
   uploadNote,
 } from "../../features/Notes/NotesSlice";
+import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 function PostModal() {
   const location = useLocation();
@@ -92,6 +93,7 @@ function PostModal() {
         },
       };
       dispatch(addNewLabel(dataToBeSent));
+      toast.success("label has been added", { autoClose: 3000 });
     }
   };
 
@@ -110,6 +112,7 @@ function PostModal() {
     };
     if (location?.search?.split("=")[1] == "true") {
       if (prevPath == "notes") {
+        toast.success("Note has been updated", { autoClose: 3000 });
         dispatch(updatedNote(dataToBeSent));
         dispatch(updateNoteLocally({ id, data: formData }));
         cleanUp();
@@ -119,6 +122,7 @@ function PostModal() {
           navigate("/archieves");
         }
       } else {
+        toast.success("archieved Note has been updated", { autoClose: 3000 });
         dispatch(updateArchieveLocally({ id, data: formData }));
         dispatch(updatedArchive(dataToBeSent));
         cleanUp();
@@ -129,6 +133,7 @@ function PostModal() {
         }
       }
     } else {
+      toast.success("Adding new note", { autoClose: 3000 });
       dispatch(uploadNote(dataToBeSent));
       cleanUp();
       navigate("/");

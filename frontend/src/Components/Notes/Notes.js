@@ -15,6 +15,7 @@ import {
   restoreFromTrash,
   deleteTrashPermannently,
 } from "../../features/Notes/NotesSlice";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function Notes({ ele, noteType }) {
@@ -59,6 +60,7 @@ function Notes({ ele, noteType }) {
                 id: ele._id,
                 token,
               };
+              toast.success("Note has been archieved", { autoClose: 3000 });
               dispatch(addToArchieve(ele._id));
               dispatch(archieveNote(dataToBeSent));
             }}
@@ -71,6 +73,7 @@ function Notes({ ele, noteType }) {
                 id: ele._id,
                 token,
               };
+              toast.success("Note has been Unarchieved", { autoClose: 3000 });
               dispatch(unArchieve(ele._id));
               dispatch(unArchieveNote(dataToBeSent));
             }}
@@ -87,9 +90,11 @@ function Notes({ ele, noteType }) {
                 token,
               };
               if (noteType == "notes") {
+                toast.error("Note has been trashed", { autoClose: 3000 });
                 dispatch(addNoteToTrash(ele._id));
                 dispatch(noteToTrash(dataToBeSent));
               } else {
+                toast.error("Note has been trashed", { autoClose: 3000 });
                 dispatch(addArchieveToTrash(ele._id));
                 dispatch(archieveToTrash(dataToBeSent));
               }
@@ -115,6 +120,9 @@ function Notes({ ele, noteType }) {
                     id: ele._id,
                     token,
                   };
+                  toast.error("Note has deleted permanently", {
+                    autoClose: 3000,
+                  });
                   dispatch(deleteTrashPermannently(dataToBeSent));
                   dispatch(deletePermanently(ele._id));
                 }}
@@ -129,6 +137,9 @@ function Notes({ ele, noteType }) {
                     id: ele._id,
                     token,
                   };
+                  toast.success("Note has restored successfully", {
+                    autoClose: 3000,
+                  });
                   dispatch(restoreFromTrash(dataToBeSent));
                   dispatch(restoreTrash(ele._id));
                 }}
