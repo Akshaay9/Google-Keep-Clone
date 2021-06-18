@@ -15,10 +15,12 @@ import Trash from "./Screens/Trash/Trash";
 import Search from "./Screens/Search/Search";
 import BottomNav from "./Screens/BottomNav/BottomNav";
 import LandingPage from "./Screens/UserAccount/LandingPage";
-
+import PrivateRoute from "./PrivateRoute"
 function App() {
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.User);
+  const { token } = useSelector((state) => state.User.User);
+
+  console.log(token);
 
   useEffect(() => {
     if (token) {
@@ -34,12 +36,12 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/archieves" element={<Archieves />} />
-          <Route path="/trash" element={<Trash />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/modal" element={<HomeScreen />} />
-          <Route path="/modal/:id" element={<HomeScreen />} />
+          <PrivateRoute path="/" element={<HomeScreen />} />
+          <PrivateRoute path="/archieves" element={<Archieves />} />
+          <PrivateRoute path="/trash" element={<Trash />} />
+          <PrivateRoute path="/search" element={<Search />} />
+          <PrivateRoute path="/modal" element={<HomeScreen />} />
+          <PrivateRoute path="/modal/:id" element={<HomeScreen />} />
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/landing/login" element={<LandingPage />} />
           <Route path="/landing/signup" element={<LandingPage />} />

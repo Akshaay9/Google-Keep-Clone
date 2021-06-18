@@ -1,18 +1,88 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import axios from "axios";
+import { toast } from "react-toastify";
 const initialState = {
-  id: "60c6ed5289febd15a0d24a9c",
-  name: "Akshay",
-  profileImage: "",
-  token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYzZlZDUyODlmZWJkMTVhMGQyNGE5YyIsImlhdCI6MTYyMzc1MTAyNH0.gK2u1yhU_C1aK3jJjukUL50Kz65_iAgbSw7YE_8vJoM",
+  loginStatus: "idle",
+  signupStatus: "idle",
+  error: "",
+  User: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : {},
 };
+
+export const loginUser = createAsyncThunk(
+  "user/login",
+  async (dataToBeSent, { rejectWithValue }) => {
+    toast.info("logging in... !");
+    try {
+      const data = await axios.post(
+        `http://localhost:5000/api/user/login`,
+        dataToBeSent
+      );
+      localStorage.setItem("user", JSON.stringify(data.data));
+      toast.success("User has been logged in !", {});
+      return data.data;
+    } catch (error) {
+      console.log(error?.response?.data?.error);
+      toast.error(`${error?.response?.data?.error}`);
+      return rejectWithValue(error?.response?.data?.error);
+    }
+  }
+);
+export const signUp = createAsyncThunk(
+  "user/signup",
+  async (dataToBeSent, { rejectWithValue }) => {
+    toast.info("Signing in... !");
+    try {
+      const data = await axios.post(
+        `http://localhost:5000/api/user/signup`,
+        dataToBeSent
+      );
+      localStorage.setItem("user", JSON.stringify(data.data));
+      toast.success("User has been signed in !", {});
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      console.log(error?.response);
+
+      toast.error(`${error?.response?.data?.error}`);
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
 
 export const AuthSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    addUser: () => {},
+    logOut: (state, { payload }) => {
+      localStorage.removeItem("user");
+      state.User = {};
+    },
+  },
+  extraReducers: {
+    [loginUser.pending]: (state, action) => {
+      state.loginStatus = "pending";
+    },
+    [loginUser.fulfilled]: (state, { payload }) => {
+      state.loginStatus = "success";
+      state.User = payload;
+    },
+    [loginUser.rejected]: (state, { payload }) => {
+      state.loginStatus = "success";
+      state.error = payload;
+    },
+    [signUp.pending]: (state, action) => {
+      state.signupStatus = "pending";
+    },
+    [signUp.fulfilled]: (state, { payload }) => {
+      state.signupStatus = "success";
+      state.User = payload;
+    },
+    [signUp.rejected]: (state, { payload }) => {
+      state.signupStatus = "success";
+      state.error = payload;
+    },
   },
 });
 

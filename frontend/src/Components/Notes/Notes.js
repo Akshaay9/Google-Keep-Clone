@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function Notes({ ele, noteType }) {
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.User);
+  const { token } = useSelector((state) => state.User.User);
   const navigate = useNavigate();
 
   return (

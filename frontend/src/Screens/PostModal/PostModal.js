@@ -26,7 +26,7 @@ function PostModal() {
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.User);
+  const { token } = useSelector((state) => state.User.User);
   const { labels, notes, archieves } = useSelector((state) => state.Notes);
 
   const prevPath = location?.state?.from;
