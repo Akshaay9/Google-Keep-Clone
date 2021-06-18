@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const data = await axios.get(`http://localhost:5000/`);
+      const data = await axios.get(`https://fitkeep98.herokuapp.com/`);
     })();
   }, []);
 
