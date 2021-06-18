@@ -1,0 +1,19 @@
+.bottom-nav{
+   display: flex;
+   width: 100%;
+   position: fixed;
+   bottom: 12%;
+   z-index: 20;
+   background-color: white; 
+}
+.bottom-nav ul{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-top: 1px solid #dadce0;
+}
+.bottom-nav i{
+    font-size: 1.3rem;
+    padding: .5rem 0rem;
+}

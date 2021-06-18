@@ -13,6 +13,7 @@ import {
 import Archieves from "./Screens/Archieves/Archieves";
 import Trash from "./Screens/Trash/Trash";
 import Search from "./Screens/Search/Search";
+import BottomNav from "./Screens/BottomNav/BottomNav"
 function App() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User);
@@ -38,6 +39,7 @@ function App() {
           <Route path="/modal" element={<HomeScreen />} />
           <Route path="/modal/:id" element={<HomeScreen />} />
         </Routes>
+        <BottomNav/>
       </BrowserRouter>
     </div>
   );

@@ -29,7 +29,7 @@ button[disabled] {
   transform: rotate(180deg);
 }
 .mobileHide{
-  display: none;
+  display: none !important;
 }
 
 @media screen and (max-width: 43.25rem) {

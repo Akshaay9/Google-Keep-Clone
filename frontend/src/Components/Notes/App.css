@@ -2,7 +2,7 @@
   width: 70%;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   grid-column-gap: 25px;
   grid-row-gap: 18px;
   cursor: pointer;
@@ -90,5 +90,9 @@
 @media screen and (max-width: 43.25rem) {
 .bottomm{
   margin-bottom: 6rem;
+}
+.notes-container {
+  width: 90%;
+ 
 }
 }
