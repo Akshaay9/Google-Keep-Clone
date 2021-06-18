@@ -1,7 +1,7 @@
-import Post from "../Models/Post.Model.js";
+import Post from "../Models/Post.model.js";
 import pkg from "lodash";
-import Archieve from "../Models/Archieve.Model.js";
-import Trash from "../Models/Trash.Model.js";
+import Archieve from "../Models/Archieve.model.js";
+import Trash from "../Models/Trash.model.js";
 const { extend } = pkg;
 
 export const getAllPosts = async (req, res) => {

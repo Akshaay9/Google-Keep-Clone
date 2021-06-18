@@ -1,4 +1,4 @@
-import Label from "../Models/Label.Model.js";
+import Label from "../Models/Label.model.js";
 import pkg from "lodash";
 const { extend } = pkg;
 
