@@ -368,7 +368,6 @@ export const NotesSlice = createSlice({
       let individualNote = state.trash.find((ele) => ele._id == payload);
 
       if (individualNote.location == "Post") {
-        console.log("hey");
         state.notes.unshift({ ...individualNote, isPinned: false });
       } else {
         state.archieves.unshift({ ...individualNote, isPinned: false });
