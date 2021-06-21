@@ -23,6 +23,8 @@ function App() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User.User);
 
+ 
+
   useEffect(() => {
     if (token) {
       dispatch(getAllNotes(token));

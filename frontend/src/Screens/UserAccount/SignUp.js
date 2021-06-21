@@ -68,6 +68,7 @@ function SignUp() {
     };
 
     dispatch(signUp(dataTobeSent));
+    navigate("/");
   };
 
   const signupModalContainer = (e) => {

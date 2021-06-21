@@ -16,6 +16,7 @@ function Login() {
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User.User);
+  
   if (token) {
     navigate(state?.from ? state.from : "/");
   }

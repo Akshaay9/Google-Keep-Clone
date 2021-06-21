@@ -4,16 +4,19 @@ import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 function LandingPage() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const location = useLocation();
+
   const { token } = useSelector((state) => state.User.User);
-  if (token) {
-    navigate(state?.from ? state.from : "/");
-  }
+
+  useEffect(() => {
+    if (token) {
+      navigate(state?.from ? state.from : "/");
+    }
+  }, []);
 
   return (
     <>
