@@ -19,7 +19,10 @@ export const getAllNotes = createAsyncThunk("notes/all", async (token) => {
       "auth-token": token,
     },
   };
-  const data = await axios.get(`https://fitkeep98.herokuapp.com/api/post`, config);
+  const data = await axios.get(
+    `https://fitkeep98.herokuapp.com/api/post`,
+    config
+  );
   return data.data;
 });
 
@@ -30,7 +33,10 @@ export const getAllTags = createAsyncThunk("tags/all", async (token) => {
       "auth-token": token,
     },
   };
-  const data = await axios.get(`https://fitkeep98.herokuapp.com/api/label`, config);
+  const data = await axios.get(
+    `https://fitkeep98.herokuapp.com/api/label`,
+    config
+  );
   return data.data;
 });
 
@@ -41,7 +47,10 @@ export const getAllTrash = createAsyncThunk("trash/all", async (token) => {
       "auth-token": token,
     },
   };
-  const data = await axios.get(`https://fitkeep98.herokuapp.com/api/trash`, config);
+  const data = await axios.get(
+    `https://fitkeep98.herokuapp.com/api/trash`,
+    config
+  );
   return data.data;
 });
 
@@ -54,7 +63,10 @@ export const getAllArchieves = createAsyncThunk(
         "auth-token": token,
       },
     };
-    const data = await axios.get(`https://fitkeep98.herokuapp.com/api/archieve`, config);
+    const data = await axios.get(
+      `https://fitkeep98.herokuapp.com/api/archieve`,
+      config
+    );
     return data.data;
   }
 );
@@ -409,7 +421,7 @@ export const NotesSlice = createSlice({
       state.searchedNote = [];
     },
     addNoteLocally: (state, { payload }) => {
-      state.labels.unshift(payload);
+      state.labels.push(payload);
     },
   },
   // labels

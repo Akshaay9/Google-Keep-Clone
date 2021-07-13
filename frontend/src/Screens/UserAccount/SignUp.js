@@ -18,6 +18,7 @@ function SignUp() {
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User.User);
+
   if (token) {
     navigate(state?.from ? state.from : "/");
   }
@@ -68,7 +69,6 @@ function SignUp() {
     };
 
     dispatch(signUp(dataTobeSent));
-    navigate("/");
   };
 
   const signupModalContainer = (e) => {
