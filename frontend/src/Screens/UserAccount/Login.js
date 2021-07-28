@@ -5,7 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../../features/Auth/AuthSlice";
-import "./Login.css"
+import "./Login.css";
 function Login() {
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -16,7 +16,7 @@ function Login() {
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User.User);
-  
+
   if (token) {
     navigate(state?.from ? state.from : "/");
   }
@@ -64,6 +64,16 @@ function Login() {
       navigate("/landing");
     }
   };
+
+  const guestUser = () => {
+    const dataTobeSent = {
+      email: "test@gmail.com",
+      password: "Test98#",
+      loader: setLoader,
+    };
+    dispatch(loginUser(dataTobeSent));
+  };
+
   return (
     <div>
       <div
@@ -136,10 +146,16 @@ function Login() {
               >
                 I agree with Terms and conditions
               </label>
-              <button disabled={loader}>
-                {loader ? <i class="fas fa-spinner fa-spin"></i> : "log In"}
-              </button>
+              <button disabled={loader}>log In</button>
             </form>
+            <button disabled={loader} onClick={() => guestUser()}>
+              {" "}
+              {loader ? (
+                <i class="fas fa-spinner fa-spin"></i>
+              ) : (
+                "log In as Guest user"
+              )}
+            </button>
           </div>
         </div>
       </div>

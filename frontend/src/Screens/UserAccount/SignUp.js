@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { signUp } from "../../features/Auth/AuthSlice";
+import { loginUser } from "../../features/Auth/AuthSlice";
 function SignUp() {
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -75,6 +76,14 @@ function SignUp() {
     if (e.target.classList.contains("login-sign-container")) {
       navigate("/landing");
     }
+  };
+  const guestUser = () => {
+    const dataTobeSent = {
+      email: "test@gmail.com",
+      password: "Test98#",
+      loader: setLoader,
+    };
+    dispatch(loginUser(dataTobeSent));
   };
   return (
     <div>
@@ -181,10 +190,16 @@ function SignUp() {
               >
                 I agree with Terms and conditions
               </label>
-              <button disabled={loader}>
-                {loader ? <i class="fas fa-spinner fa-spin"></i> : "sign up"}
-              </button>
+              <button disabled={loader}>sign up</button>
             </form>
+            <button disabled={loader} onClick={() => guestUser()}>
+              {" "}
+              {loader ? (
+                <i class="fas fa-spinner fa-spin"></i>
+              ) : (
+                "log In as Guest user"
+              )}
+            </button>
           </div>
         </div>
       </div>
