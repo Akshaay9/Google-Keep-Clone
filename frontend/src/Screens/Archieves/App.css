@@ -1,0 +1,7 @@
+.heading {
+  width: 70%;
+  margin: 1.2rem auto 1rem auto;
+  padding: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}

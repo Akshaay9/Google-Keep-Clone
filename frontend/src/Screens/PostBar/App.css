@@ -1,0 +1,19 @@
+.postBar {
+  cursor: pointer;
+  width: 30%;
+  margin: 2rem auto;
+  padding: 0.7rem 0.7rem;
+  color: #80868b;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  box-shadow: 5px 6px 10px -1px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 5px 6px 10px -1px rgba(0, 0, 0, 0.55);
+  -moz-box-shadow: 5px 6px 10px -1px rgba(0, 0, 0, 0.75);
+}
+@media screen and (max-width: 43.25rem) {
+  .postBar {
+    cursor: pointer;
+    width: 90%;
+
+  }
+}
