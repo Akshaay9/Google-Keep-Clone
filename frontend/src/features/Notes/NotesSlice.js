@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import pkg from "lodash";
+import { BE_URL } from "../../const";
 const { extend } = pkg;
 const initialState = {
   notes: [],
@@ -19,10 +20,7 @@ export const getAllNotes = createAsyncThunk("notes/all", async (token) => {
       "auth-token": token,
     },
   };
-  const data = await axios.get(
-    `https://fitkeep98.herokuapp.com/api/post`,
-    config
-  );
+  const data = await axios.get(`${BE_URL}/api/post`, config);
   return data.data;
 });
 
@@ -33,10 +31,7 @@ export const getAllTags = createAsyncThunk("tags/all", async (token) => {
       "auth-token": token,
     },
   };
-  const data = await axios.get(
-    `https://fitkeep98.herokuapp.com/api/label`,
-    config
-  );
+  const data = await axios.get(`${BE_URL}/api/label`, config);
   return data.data;
 });
 
@@ -47,10 +42,7 @@ export const getAllTrash = createAsyncThunk("trash/all", async (token) => {
       "auth-token": token,
     },
   };
-  const data = await axios.get(
-    `https://fitkeep98.herokuapp.com/api/trash`,
-    config
-  );
+  const data = await axios.get(`${BE_URL}/api/trash`, config);
   return data.data;
 });
 
@@ -63,10 +55,7 @@ export const getAllArchieves = createAsyncThunk(
         "auth-token": token,
       },
     };
-    const data = await axios.get(
-      `https://fitkeep98.herokuapp.com/api/archieve`,
-      config
-    );
+    const data = await axios.get(`${BE_URL}/api/archieve`, config);
     return data.data;
   }
 );
@@ -85,7 +74,7 @@ export const uploadNote = createAsyncThunk(
     // toast.info("uploading new poast !");
     try {
       const data = await axios.post(
-        `https://fitkeep98.herokuapp.com/api/post`,
+        `${BE_URL}/api/post`,
         dataToBeSent.data,
         config
       );
@@ -112,7 +101,7 @@ export const updatedNote = createAsyncThunk(
     };
     try {
       const data = await axios.post(
-        `https://fitkeep98.herokuapp.com/api/post/${dataToBeSent.id}`,
+        `${BE_URL}/api/post/${dataToBeSent.id}`,
         dataToBeSent.data,
         config
       );
@@ -135,7 +124,7 @@ export const updatedArchive = createAsyncThunk(
     };
     try {
       const data = await axios.post(
-        `https://fitkeep98.herokuapp.com/api/archieve/${dataToBeSent.id}`,
+        `${BE_URL}/api/archieve/${dataToBeSent.id}`,
         dataToBeSent.data,
         config
       );
@@ -159,7 +148,7 @@ export const archieveNote = createAsyncThunk(
     };
     try {
       const data = await axios.post(
-        `https://fitkeep98.herokuapp.com/api/post/${dataToBeSent.id}/addToArchieve`,
+        `${BE_URL}/api/post/${dataToBeSent.id}/addToArchieve`,
         null,
         config
       );
@@ -183,7 +172,7 @@ export const unArchieveNote = createAsyncThunk(
     };
     try {
       const data = await axios.post(
-        `https://fitkeep98.herokuapp.com/api/archieve/${dataToBeSent.id}/addToPost`,
+        `${BE_URL}/api/archieve/${dataToBeSent.id}/addToPost`,
         null,
         config
       );
@@ -208,7 +197,7 @@ export const noteToTrash = createAsyncThunk(
     };
     try {
       const data = await axios.post(
-        `https://fitkeep98.herokuapp.com/api/post/${dataToBeSent.id}/addToTrash`,
+        `${BE_URL}/api/post/${dataToBeSent.id}/addToTrash`,
         null,
         config
       );
@@ -233,7 +222,7 @@ export const archieveToTrash = createAsyncThunk(
     };
     try {
       const data = await axios.post(
-        `https://fitkeep98.herokuapp.com/api/archieve/${dataToBeSent.id}/addToTrash`,
+        `${BE_URL}/api/archieve/${dataToBeSent.id}/addToTrash`,
         null,
         config
       );
@@ -258,7 +247,7 @@ export const restoreFromTrash = createAsyncThunk(
     };
     try {
       const data = await axios.post(
-        `https://fitkeep98.herokuapp.com/api/trash/${dataToBeSent.id}/restore`,
+        `${BE_URL}/api/trash/${dataToBeSent.id}/restore`,
         null,
         config
       );
@@ -284,7 +273,7 @@ export const deleteTrashPermannently = createAsyncThunk(
     };
     try {
       const data = await axios.delete(
-        `https://fitkeep98.herokuapp.com/api/trash/${dataToBeSent.id}`,
+        `${BE_URL}/api/trash/${dataToBeSent.id}`,
         config
       );
 
@@ -309,7 +298,7 @@ export const addNewLabel = createAsyncThunk(
     };
     try {
       const data = await axios.post(
-        `https://fitkeep98.herokuapp.com/api/label`,
+        `${BE_URL}/api/label`,
         dataToBeSent.data,
         config
       );

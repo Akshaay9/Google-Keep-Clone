@@ -19,11 +19,11 @@ import PrivateRoute from "./PrivateRoute";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import { BE_URL } from "./const";
+
 function App() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.User.User);
-
- 
 
   useEffect(() => {
     if (token) {
@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const data = await axios.get(`https://fitkeep98.herokuapp.com/`);
+      const data = await axios.get(`${BE_URL}/`);
     })();
   }, []);
 
